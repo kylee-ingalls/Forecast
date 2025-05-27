@@ -17,19 +17,11 @@ function refreshWeather(response) {
     temperatureElement.innerHTML = Math.round(temperature);
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
   }
-
+  
   function formatDate(date) {
     let minutes = date.getMinutes();
     let hours = date.getHours();
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let day = days[date.getDay()];
   
     if (minutes < 10) {
@@ -38,22 +30,22 @@ function refreshWeather(response) {
   
     return `${day} ${hours}:${minutes}`;
   }
-
-function searchCity(city) {
-    //make an API call to fetch weather data for the given city
+  
+  function searchCity(city) {
     let apiKey = "cb60bbeo7bd602d062ff8d664eta0043";
     let apiURL = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
     axios.get(apiURL).then(refreshWeather);
-}
-
-function handleSearchSubmit(event) {
+  }
+  
+  function handleSearchSubmit(event) {
     event.preventDefault();
     let searchInput = document.querySelector("#search-form-input");
-    let cityElement = document.querySelector("#city");
-    
     searchCity(searchInput.value);
   }
   
   let searchFormElement = document.querySelector("#search-form");
   searchFormElement.addEventListener("submit", handleSearchSubmit);
+  
+  // Default city
   searchCity("Oklahoma City");
+  
